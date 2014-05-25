@@ -56,9 +56,9 @@
                         <input type="text"
                                class="form-control"
                                id="issuer"
-                               value="Online JWT Builder" >
+                               data-bind="value: standardClaims.issuer, valueUpdate:'afterkeydown'">
                     </div>
-                    <p class="col-sm-5 text-success">Identifier (or, name) of the server or system issuing the token.</p>
+                    <p class="col-sm-5 text-success">Identifier (or, name) of the server or system issuing the token. Typically a DNS name, but doesn't have to be.</p>
                 </div>
                 <div class="form-group">
                     <label for="issuedAt" class="col-sm-2  control-label">Issued At</label>
@@ -66,12 +66,12 @@
                         <input type="text"
                                class="form-control"
                                id="issuedAt"
-                               value="2014-07-14T8:30Z" >
+                               data-bind="value: standardClaims.issuedAt, valueUpdate:'afterkeydown'">
                     </div>
                     <div class="col-sm-5">
                         <p class="text-success">Date/time when the token was issued.</p>
                         <p>
-                            <button type="button" class="btn btn-primary btn-xs">now</button>
+                            <button type="button" class="btn btn-primary btn-xs" data-bind="click:issuedAtSetNow">now</button>
                         </p>
                     </div>
                 </div>
@@ -81,14 +81,14 @@
                         <input type="text"
                                class="form-control"
                                id="expiration"
-                               value="2014-07-16T19:20Z" >
+                               data-bind="value: standardClaims.expiration, valueUpdate:'afterkeydown'">
                     </div>
                     <div class="col-sm-5">
                         <p class="text-success">Date/time at which point the token is no longer valid.</p>
                         <p>
-                            <button type="button" class="btn btn-primary btn-xs">now</button>
-                            <button type="button" class="btn btn-primary btn-xs">in 20 minutes</button>
-                            <button type="button" class="btn btn-primary btn-xs">in 1 year</button>
+                            <button type="button" class="btn btn-primary btn-xs" data-bind="click:expirationSetNow">now</button>
+                            <button type="button" class="btn btn-primary btn-xs" data-bind="click:expirationSetTwentyMinutes">in 20 minutes</button>
+                            <button type="button" class="btn btn-primary btn-xs" data-bind="click:expirationSetOneYear">in 1 year</button>
                         </p>
                     </div>
                 </div>
@@ -98,9 +98,9 @@
                         <input type="text"
                                class="form-control"
                                id="audience"
-                               value="www.example.com" >
+                               data-bind="value: standardClaims.audience, valueUpdate:'afterkeydown'">
                     </div>
-                    <p class="col-sm-5 text-success">Intended recipient of this token; can be any string, as long as the other end uses the same string when validating the token. Is typically a DNS name.</p>
+                    <p class="col-sm-5 text-success">Intended recipient of this token; can be any string, as long as the other end uses the same string when validating the token. Typically a DNS name.</p>
                 </div>
                 <div class="form-group">
                     <label for="subject" class="col-sm-2 control-label">Subject</label>
@@ -108,7 +108,7 @@
                         <input type="text"
                                class="form-control"
                                id="subject"
-                               value="jrocket@example.com" >
+                               data-bind="value: standardClaims.subject, valueUpdate:'afterkeydown'">
                     </div>
                     <p class="col-sm-5 text-success">Identifier (or, name) of the user this token represents.</p>
                 </div>
@@ -129,19 +129,31 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <!-- ko foreach:additionalClaims -->
                                 <tr>
-                                    <td>Email</td>
-                                    <td>jrocket@example.com</td>
+                                    <td style="width:150px">
+                                        <input type="text"
+                                               class="form-control"
+                                               data-bind="value: claimType, valueUpdate:'afterkeydown'">
+
+                                    </td>
+                                    <td>
+                                        <input type="text"
+                                               class="form-control"
+                                               data-bind="value: value, valueUpdate:'afterkeydown'">
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td>Role</td>
-                                    <td>Manager</td>
-                                </tr>
+                                <!-- /ko -->
                             </tbody>
                         </table>
                     </div>
-                    <p class="col-sm-5 text-success">Use this section to define 0 or more custom claims for your token.
-                        The claim type can be anything, and so can the value.</p>
+                    <div class="col-sm-5">
+                        <p class="text-success">Use this section to define 0 or more custom claims for your token.
+                            The claim type can be anything, and so can the value</p>
+                            <button type="button" class="btn btn-primary btn-xs" data-bind="click:clearAllAdditionalClaims">clear all</button>
+                            <button type="button" class="btn btn-primary btn-xs" data-bind="click:addOneAdditionalClaim">add one</button>
+                            <button type="button" class="btn btn-primary btn-xs" data-bind="click:addEmailAdditionalClaim">add email claim</button>
+                    </div>
                 </div>
             </div>
 
@@ -152,15 +164,17 @@
                 <div class="row">&nbsp;</div>
                 <div class="form-group">
                     <div class="col-sm-5 col-sm-offset-1">
-                        <pre>{
-    GivenName:'Johnny',
-    Surname:'Rocket',
-    Email:'jrocket@example.com',
-    Role:'Manager',
-    Role:'Project Administrator'
-} </pre>
+                        <pre data-bind="text: generatedClaimSet" />
                     </div>
-                    <p class="col-sm-6 text-success">This section displays the claim-set portion of the token that will be signed and base64-encoded.</p>
+                    <div class="col-sm-6">
+                        <p class=" text-success">This section displays the claim-set portion of the token that will be signed and base64-encoded.</p>
+                        <p>&nbsp;</p>
+                        <p><em>
+                                <ul data-bind="foreach: warnings">
+                                    <li><span class="text-danger" data-bind="html: $data"> </span></li>
+                                </ul>
+                         </em></p>
+                    </div>
                 </div>
             </div>
 
@@ -177,11 +191,19 @@
 
 </div><!-- /.container -->
 
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+<script type='text/javascript' src='/js/knockout-3.1.0.js'></script>
+<script src="/js/common.js"></script>
+<script src="/js/viewModels.js"></script>
+
+<script>
+
+    ko.applyBindings(createMaster());
+
+</script>
+
+
+
 </body>
 </html>
