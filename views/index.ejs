@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Jamie Kurtz's online JSON Web Token Builder">
+    <meta name="author" content="Jamie Kurtz">
+    <!--<link rel="shortcut icon" href="../../assets/ico/favicon.ico">-->
+
+    <title>Online JWT Builder - Jamie Kurtz</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">JSON Web Token Builder</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="body-template">
+
+        <form class="form-horizontal" role="form">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Standard JWT Claims
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="form-group">
+                    <label for="issuer" class="col-sm-2 control-label">Issuer</label>
+                    <div class="col-sm-4">
+                        <input type="text"
+                               class="form-control"
+                               id="issuer"
+                               value="Online JWT Builder" >
+                    </div>
+                    <p class="col-sm-5 text-success">Identifier (or, name) of the server or system issuing the token.</p>
+                </div>
+                <div class="form-group">
+                    <label for="issuedAt" class="col-sm-2  control-label">Issued At</label>
+                    <div class="col-sm-4">
+                        <input type="text"
+                               class="form-control"
+                               id="issuedAt"
+                               value="2014-07-14T8:30Z" >
+                    </div>
+                    <div class="col-sm-5">
+                        <p class="text-success">Date/time when the token was issued.</p>
+                        <p>
+                            <button type="button" class="btn btn-primary btn-xs">now</button>
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="subject" class="col-sm-2 control-label">Expiration</label>
+                    <div class="col-sm-4">
+                        <input type="text"
+                               class="form-control"
+                               id="expiration"
+                               value="2014-07-16T19:20Z" >
+                    </div>
+                    <div class="col-sm-5">
+                        <p class="text-success">Date/time at which point the token is no longer valid.</p>
+                        <p>
+                            <button type="button" class="btn btn-primary btn-xs">now</button>
+                            <button type="button" class="btn btn-primary btn-xs">in 20 minutes</button>
+                            <button type="button" class="btn btn-primary btn-xs">in 1 year</button>
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="audience" class="col-sm-2 control-label">Audience</label>
+                    <div class="col-sm-4">
+                        <input type="text"
+                               class="form-control"
+                               id="audience"
+                               value="www.example.com" >
+                    </div>
+                    <p class="col-sm-5 text-success">Intended recipient of this token; can be any string, as long as the other end uses the same string when validating the token. Is typically a DNS name.</p>
+                </div>
+                <div class="form-group">
+                    <label for="subject" class="col-sm-2 control-label">Subject</label>
+                    <div class="col-sm-4">
+                        <input type="text"
+                               class="form-control"
+                               id="subject"
+                               value="jrocket@example.com" >
+                    </div>
+                    <p class="col-sm-5 text-success">Identifier (or, name) of the user this token represents.</p>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Additional Claims
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="form-group">
+                    <div class="col-sm-5 col-sm-offset-1">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Claim Type</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>jrocket@example.com</td>
+                                </tr>
+                                <tr>
+                                    <td>Role</td>
+                                    <td>Manager</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="col-sm-5 text-success">Use this section to define 0 or more custom claims for your token.
+                        The claim type can be anything, and so can the value.</p>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Generated Claim Set (plain text)
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="form-group">
+                    <div class="col-sm-5 col-sm-offset-1">
+                        <pre>{
+    GivenName:'Johnny',
+    Surname:'Rocket',
+    Email:'jrocket@example.com',
+    Role:'Manager',
+    Role:'Project Administrator'
+} </pre>
+                    </div>
+                    <p class="col-sm-6 text-success">This section displays the claim-set portion of the token that will be signed and base64-encoded.</p>
+                </div>
+            </div>
+
+                <!--<div class="form-group">-->
+                    <!--<div class="col-sm-offset-2 col-sm-10">-->
+                        <!--<button type="submit" class="btn btn-default">Sign in</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+        </form>
+
+
+
+    </div>
+
+</div><!-- /.container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>
