@@ -9,11 +9,15 @@ var masterViewModel = function(standardClaims, additionalClaims) {
     self.createdJwt = ko.observable("");
 
     self.generatedClaimSet = ko.computed(function() {
+
+        var iat = new Date(this.standardClaims.issuedAt()).getTime();
+        var exp = new Date(this.standardClaims.expiration()).getTime();
+
         var claimSet =
             {
                 iss : this.standardClaims.issuer(),
-                iat : this.standardClaims.issuedAt(),
-                exp : this.standardClaims.expiration(),
+                iat : Math.floor(iat / 1000),
+                exp : Math.floor(exp / 1000),
                 aud : this.standardClaims.audience(),
                 sub : this.standardClaims.subject()
             };
@@ -46,13 +50,13 @@ var masterViewModel = function(standardClaims, additionalClaims) {
         return claimSet;
     }, self);
 
-
     self.generatedClaimSetDisplay = ko.computed(function() {
         return JSON.stringify(this.generatedClaimSet(), null, 4);
     }, this);
 
     self.clearCreatedJwt = ko.computed(function() {
         self.generatedClaimSet();
+        self.key();
         self.createdJwt("");
     }, self);
 

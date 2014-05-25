@@ -189,7 +189,7 @@
                         <input type="text"
                                class="form-control"
                                id="key"
-                               data-bind="value: key">
+                               data-bind="value: key, valueUpdate:'afterkeydown'">
                     </div>
                     <div class="col-sm-6">
                         <button type="button" class="btn btn-default"  data-bind="click:createJwt">Create Signed JWT</button>
