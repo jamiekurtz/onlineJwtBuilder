@@ -164,7 +164,7 @@
                 <div class="row">&nbsp;</div>
                 <div class="form-group">
                     <div class="col-sm-5 col-sm-offset-1">
-                        <pre data-bind="text: generatedClaimSet" />
+                        <pre data-bind="text: generatedClaimSetDisplay" />
                     </div>
                     <div class="col-sm-6">
                         <p class=" text-success">This section displays the claim-set portion of the token that will be signed and base64-encoded.</p>
@@ -178,11 +178,31 @@
                 </div>
             </div>
 
-                <!--<div class="form-group">-->
-                    <!--<div class="col-sm-offset-2 col-sm-10">-->
-                        <!--<button type="submit" class="btn btn-default">Sign in</button>-->
-                    <!--</div>-->
-                <!--</div>-->
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Signed JSON Web Token
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="form-group">
+                    <label for="key" class="col-sm-2 control-label">Key</label>
+                    <div class="col-sm-4">
+                        <input type="text"
+                               class="form-control"
+                               id="key"
+                               data-bind="value: key">
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-default"  data-bind="click:createJwt">Create Signed JWT</button>
+                    </div>
+                    <div class="col-md-12">
+                        &nbsp;
+                    </div>
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <pre data-bind="text: createdJwt" />
+                    </div>
+                </div>
+            </div>
+
         </form>
 
 

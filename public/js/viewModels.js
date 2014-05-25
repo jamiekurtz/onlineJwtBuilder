@@ -1,9 +1,14 @@
 var masterViewModel = function(standardClaims, additionalClaims) {
 
-    this.standardClaims = standardClaims;
-    this.additionalClaims = ko.observableArray(additionalClaims);
+    var self = this;
 
-    this.generatedClaimSet = ko.computed(function() {
+    self.standardClaims = standardClaims;
+    self.additionalClaims = ko.observableArray(additionalClaims);
+
+    self.key = ko.observable("my key");
+    self.createdJwt = ko.observable("");
+
+    self.generatedClaimSet = ko.computed(function() {
         var claimSet =
             {
                 iss : this.standardClaims.issuer(),
@@ -38,8 +43,18 @@ var masterViewModel = function(standardClaims, additionalClaims) {
             }
         }
 
-        return JSON.stringify(claimSet, null, 4);
+        return claimSet;
+    }, self);
+
+
+    self.generatedClaimSetDisplay = ko.computed(function() {
+        return JSON.stringify(this.generatedClaimSet(), null, 4);
     }, this);
+
+    self.clearCreatedJwt = ko.computed(function() {
+        self.generatedClaimSet();
+        self.createdJwt("");
+    }, self);
 
     self.issuedAtSetNow = function() {
         this.standardClaims.issuedAt(new Date().toISOString());
@@ -75,7 +90,33 @@ var masterViewModel = function(standardClaims, additionalClaims) {
         this.additionalClaims.push(new claimViewModel("Email","bee@example.com"));
     };
 
-    this.warnings = ko.computed(function() {
+    self.createJwt = function() {
+        var request = {
+          claims: this.generatedClaimSet(),
+          key:this.key()
+        };
+
+        var data = ko.toJSON(request);
+
+        $.ajax({
+            type: 'POST',
+            url: '/tokens',
+            data: data,
+            contentType: 'application/json;charset=utf8',
+            success: self.onTokenSuccess,
+            error: self.onTokenError
+        });
+    };
+
+    self.onTokenSuccess = function(data, status) {
+        self.createdJwt(data.token);
+    };
+
+    self.onTokenError = function(error) {
+        self.createdJwt(error.responseText);
+    };
+
+    self.warnings = ko.computed(function() {
         var warnings = [];
 
         var dt = new Date(this.standardClaims.issuedAt());
@@ -89,16 +130,19 @@ var masterViewModel = function(standardClaims, additionalClaims) {
         }
 
         return warnings;
-    }, this);
+    }, self);
 };
 
 
 var standardClaimsViewModel = function(issuer, issuedAt, expiration, audience, subject) {
-    this.issuer = ko.observable(issuer);
-    this.issuedAt = ko.observable(issuedAt);
-    this.expiration = ko.observable(expiration);
-    this.audience = ko.observable(audience);
-    this.subject = ko.observable(subject);
+
+    var self = this;
+
+    self.issuer = ko.observable(issuer);
+    self.issuedAt = ko.observable(issuedAt);
+    self.expiration = ko.observable(expiration);
+    self.audience = ko.observable(audience);
+    self.subject = ko.observable(subject);
 };
 
 
@@ -124,6 +168,8 @@ var createMaster = function() {
 };
 
 var claimViewModel = function(claimType, value) {
-    this.claimType = ko.observable(claimType);
-    this.value = ko.observable(value);
+    var self = this;
+
+    self.claimType = ko.observable(claimType);
+    self.value = ko.observable(value);
 };
