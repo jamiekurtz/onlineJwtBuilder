@@ -211,8 +211,11 @@
                     <div class="col-md-12">
                         &nbsp;
                     </div>
-                    <div class="col-sm-8 col-sm-offset-2">
-                        <pre data-bind="text: createdJwt" />
+                    <div class="col-sm-7 col-sm-offset-2">
+                        <pre data-bind="text: createdJwt" id="created-jwt" />
+                    </div>
+                    <div class="col-sm-1">
+                        <button id="copy-button" class="btn btn-default btn-xs" data-clipboard-target="created-jwt" title="Click to copy the token.">Copy to Clipboard</button>
                     </div>
                 </div>
             </div>
@@ -230,10 +233,26 @@
 <script type='text/javascript' src='/js/knockout-3.1.0.js'></script>
 <script src="/js/common.js"></script>
 <script src="/js/viewModels.js"></script>
+<script type="text/javascript" src="/js/ZeroClipboard.js"></script>
 
 <script>
 
     ko.applyBindings(createMaster());
+
+
+    var client = new ZeroClipboard( document.getElementById("copy-button") );
+
+    client.on( "ready", function( readyEvent ) {
+        // alert( "ZeroClipboard SWF is ready!" );
+
+        client.on( "aftercopy", function( event ) {
+            // `this` === `client`
+            // `event.target` === the element that was clicked
+            event.target.style.display = "none";
+            alert("Copied text to clipboard: " + event.data["text/plain"] );
+        } );
+    } );
+
 
 </script>
 
