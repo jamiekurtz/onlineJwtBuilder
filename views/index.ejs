@@ -257,16 +257,7 @@
     var viewModel = createMaster();
     ko.applyBindings(viewModel);
 
-
     var client = new ZeroClipboard( document.getElementById("copy-button") );
-    client.on( "copy", function (event) {
-        var clipboard = event.clipboardData;
-        clipboard.setData( "text/plain", "Copy me!" );
-        clipboard.setData( "text/html", "<b>Copy me!</b>" );
-        clipboard.setData( "application/rtf", "{\\rtf1\\ansi\n{\\b Copy me!}}" );
-    });
-
-
     client.on( "ready", function( readyEvent ) {
         // alert( "ZeroClipboard SWF is ready!" );
 
