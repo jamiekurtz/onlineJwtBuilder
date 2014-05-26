@@ -2,6 +2,5 @@
 - add dropdown for algorithm
 - save to local storage
 - base64 representation of the key ??
-- add google analytics
 
 

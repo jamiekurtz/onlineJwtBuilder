@@ -256,9 +256,6 @@
 
 <script>
 
-    var viewModel = createMaster();
-    ko.applyBindings(viewModel);
-
     var client = new ZeroClipboard( document.getElementById("copy-button") );
     client.on( "ready", function( readyEvent ) {
         // alert( "ZeroClipboard SWF is ready!" );
@@ -272,6 +269,9 @@
     } );
 
     $(function() {
+        var viewModel = createMaster();
+        ko.applyBindings(viewModel);
+
         viewModel.key("qwertyuiopasdfghjklzxcvbnm123456");
         viewModel.issuedAtSetNow();
         viewModel.expirationSetOneYear();
