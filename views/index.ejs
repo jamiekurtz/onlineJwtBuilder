@@ -126,6 +126,7 @@
                                 <tr>
                                     <th>Claim Type</th>
                                     <th>Value</th>
+                                    <th>&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -142,6 +143,10 @@
                                                class="form-control"
                                                data-bind="value: value, valueUpdate:'afterkeydown'">
                                     </td>
+                                    <td>
+                                        <a href="#" title="delete claim" style="float:right"
+                                           data-bind="click: $parent.removeClaim"><i class="glyphicon glyphicon-remove"></i></a>
+                                    </td>
                                 </tr>
                                 <!-- /ko -->
                             </tbody>
@@ -149,10 +154,17 @@
                     </div>
                     <div class="col-sm-5">
                         <p class="text-success">Use this section to define 0 or more custom claims for your token.
-                            The claim type can be anything, and so can the value</p>
+                            The claim type can be anything, and so can the value. If recipient of the token is a .NET Framework application,
+                            you might want to follow the Microsoft <a href="http://msdn.microsoft.com/en-us/library/system.identitymodel.claims.claimtypes(v=vs.110).aspx">ClaimType names</a>.
+                            You can also use the .NET-oriented claim buttons below.</p>
+                        <p>
                             <button type="button" class="btn btn-primary btn-xs" data-bind="click:clearAllAdditionalClaims">clear all</button>
                             <button type="button" class="btn btn-primary btn-xs" data-bind="click:addOneAdditionalClaim">add one</button>
-                            <button type="button" class="btn btn-primary btn-xs" data-bind="click:addEmailAdditionalClaim">add email claim</button>
+                            <button type="button" class="btn btn-primary btn-xs" data-bind="click:addEmailAdditionalClaim">add email claim</button></p>
+                        <p>
+                            <button type="button" class="btn btn-primary btn-xs" data-bind="click:addNameNetAdditionalClaim">add name claim (.NET)</button>
+                            <button type="button" class="btn btn-primary btn-xs" data-bind="click:addRoleNetAdditionalClaim">add role claim (.NET)</button>
+                            <button type="button" class="btn btn-primary btn-xs" data-bind="click:addEmailNetAdditionalClaim">add email claim (.NET)</button></p>
                     </div>
                 </div>
             </div>
@@ -163,11 +175,11 @@
                 </div>
                 <div class="row">&nbsp;</div>
                 <div class="form-group">
-                    <div class="col-sm-5 col-sm-offset-1">
+                    <div class="col-sm-8 col-sm-offset-1">
                         <pre data-bind="text: generatedClaimSetDisplay" />
                     </div>
-                    <div class="col-sm-6">
-                        <p class=" text-success">This section displays the claim-set portion of the token that will be signed and base64-encoded.</p>
+                    <div class="col-sm-3">
+                        <p class=" text-success">This section displays the claims that will be signed and base64-encoded into a complete JSON Web Token.</p>
                         <p>&nbsp;</p>
                         <p><em>
                                 <ul data-bind="foreach: warnings">
@@ -185,13 +197,13 @@
                 <div class="row">&nbsp;</div>
                 <div class="form-group">
                     <label for="key" class="col-sm-2 control-label">Key</label>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <input type="text"
                                class="form-control"
                                id="key"
                                data-bind="value: key, valueUpdate:'afterkeydown'">
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <button type="button" class="btn btn-default"  data-bind="click:createJwt">Create Signed JWT</button>
                     </div>
                     <div class="col-md-12">

@@ -94,6 +94,22 @@ var masterViewModel = function(standardClaims, additionalClaims) {
         this.additionalClaims.push(new claimViewModel("Email","bee@example.com"));
     };
 
+    self.addNameNetAdditionalClaim = function() {
+        this.additionalClaims.push(new claimViewModel("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name","jrocket"));
+    };
+
+    self.addRoleNetAdditionalClaim = function() {
+        this.additionalClaims.push(new claimViewModel("http://schemas.microsoft.com/ws/2008/06/identity/claims/role","Manager"));
+    };
+
+    self.addEmailNetAdditionalClaim = function() {
+        this.additionalClaims.push(new claimViewModel("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/email","bee@example.com"));
+    };
+
+    self.removeClaim = function(claim) {
+        self.additionalClaims.remove(claim);
+    };
+
     self.createJwt = function() {
         var request = {
           claims: this.generatedClaimSet(),
