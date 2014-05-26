@@ -1,8 +1,6 @@
 
 - add a button for "generate 32-byte key"
 - add dropdown for algorithm
-- add button to a .NET claim types
-- delete a claim
 - save to local storage
 - buttons to generate 32, 64, and 128-byte symmetic keys
 - base64 representation of the key
