@@ -5,8 +5,12 @@ var masterViewModel = function(standardClaims, additionalClaims) {
     self.standardClaims = standardClaims;
     self.additionalClaims = ko.observableArray(additionalClaims);
 
-    self.key = ko.observable("qwertyuiopasdfghjklzxcvbnm123456");
+    self.key = ko.observable("");
     self.createdJwt = ko.observable("");
+
+    self.keyLength = ko.computed(function() {
+        return self.key().length;
+    });
 
     self.generatedClaimSet = ko.computed(function() {
 
@@ -139,6 +143,8 @@ var masterViewModel = function(standardClaims, additionalClaims) {
     self.onTokenError = function(error) {
         self.createdJwt(error.responseText);
     };
+
+    self.noop = function() {};
 
     self.warnings = ko.computed(function() {
         var warnings = [];
