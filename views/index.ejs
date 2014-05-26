@@ -206,17 +206,31 @@
                         HS256
                     </div>
                     <div class="col-sm-3">
-                        <button type="button" class="btn btn-success"  data-bind="click:createJwt">Create Signed JWT</button>
+                        <!-- Split button -->
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-success" data-bind="click:createJwt">Create Signed JWT</button>
+                            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a data-bind="click:generateSymmetricKey(32)">Generate 32-byte key</a></li>
+                                <li><a data-bind="click:generateSymmetricKey(64)">Generate 64-byte key</a></li>
+                                <li><a data-bind="click:generateSymmetricKey(128)">Generate 128-byte key</a></li>
+                                <li class="divider"></li>
+                                <li><a id="copy-button" data-clipboard-target="created-jwt">Copy JWT to clipboard</a></li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="col-md-12">
                         &nbsp;
                     </div>
-                    <div class="col-sm-7 col-sm-offset-2">
-                        <pre data-bind="text: createdJwt" id="created-jwt" />
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <pre data-bind="text: createdJwt" style="height: 8pc" id="created-jwt" />
                     </div>
-                    <div class="col-sm-1">
-                        <button id="copy-button" class="btn btn-default btn-xs" data-clipboard-target="created-jwt" title="Click to copy the token.">Copy to Clipboard</button>
-                    </div>
+                    <!--<div class="col-sm-1">-->
+                        <!--<p><button id="copy-button" class="btn btn-default btn-xs" data-clipboard-target="created-jwt" title="Click to copy the token.">Copy to Clipboard</button></p>-->
+                    <!--</div>-->
                 </div>
             </div>
 
@@ -237,7 +251,8 @@
 
 <script>
 
-    ko.applyBindings(createMaster());
+    var viewModel = createMaster();
+    ko.applyBindings(viewModel);
 
 
     var client = new ZeroClipboard( document.getElementById("copy-button") );
@@ -253,6 +268,9 @@
         } );
     } );
 
+    $(function() {
+        viewModel.generateSymmetricKey(32);
+    });
 
 </script>
 

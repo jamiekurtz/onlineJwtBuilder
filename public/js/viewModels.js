@@ -110,6 +110,10 @@ var masterViewModel = function(standardClaims, additionalClaims) {
         self.additionalClaims.remove(claim);
     };
 
+    self.generateSymmetricKey = function(charCount) {
+        self.key(createKey(charCount));
+    };
+
     self.createJwt = function() {
         var request = {
           claims: this.generatedClaimSet(),

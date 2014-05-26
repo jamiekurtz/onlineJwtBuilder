@@ -7,3 +7,15 @@ Array.prototype.clear = function() {
         this.pop();
     }
 };
+
+function createKey(charCount)
+{
+    var key = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < charCount; i++ ) {
+        key += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+
+    return key;
+}
