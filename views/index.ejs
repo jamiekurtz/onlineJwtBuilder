@@ -68,8 +68,8 @@
                                data-bind="value: standardClaims.issuedAt, valueUpdate:'afterkeydown'">
                     </div>
                     <div class="col-sm-5">
-                        <p class="text-success">Date/time when the token was issued.</p>
-                        <p>
+                        <p class="text-success">Date/time when the token was issued. (defaults to now)
+                            &nbsp;&nbsp;
                             <button type="button" class="btn btn-success btn-xs" data-bind="click:issuedAtSetNow">now</button>
                         </p>
                     </div>
@@ -83,8 +83,8 @@
                                data-bind="value: standardClaims.expiration, valueUpdate:'afterkeydown'">
                     </div>
                     <div class="col-sm-5">
-                        <p class="text-success">Date/time at which point the token is no longer valid.</p>
-                        <p>
+                        <p class="text-success">Date/time at which point the token is no longer valid. (defaults to one year from now)
+                            &nbsp;&nbsp;
                             <button type="button" class="btn btn-success btn-xs" data-bind="click:expirationSetNow">now</button>
                             <button type="button" class="btn btn-success btn-xs" data-bind="click:expirationSetTwentyMinutes">in 20 minutes</button>
                             <button type="button" class="btn btn-success btn-xs" data-bind="click:expirationSetOneYear">in 1 year</button>
@@ -153,9 +153,11 @@
                     </div>
                     <div class="col-sm-5">
                         <p class="text-success">Use this section to define 0 or more custom claims for your token.
-                            The claim type can be anything, and so can the value. If recipient of the token is a .NET Framework application,
+                            The claim type can be anything, and so can the value.</p>
+                        <p class="text-success">If recipient of the token is a .NET Framework application,
                             you might want to follow the Microsoft <a href="http://msdn.microsoft.com/en-us/library/system.identitymodel.claims.claimtypes(v=vs.110).aspx">ClaimType names</a>.
                             You can also use the .NET-oriented claim buttons below.</p>
+                        <p>&nbsp;</p>
                         <p>
                             <button type="button" class="btn btn-success btn-xs" data-bind="click:clearAllAdditionalClaims">clear all</button>
                             <button type="button" class="btn btn-success btn-xs" data-bind="click:addOneAdditionalClaim">add one</button>
@@ -271,6 +273,8 @@
 
     $(function() {
         viewModel.key("qwertyuiopasdfghjklzxcvbnm123456");
+        viewModel.issuedAtSetNow();
+        viewModel.expirationSetOneYear();
     });
 
 </script>
