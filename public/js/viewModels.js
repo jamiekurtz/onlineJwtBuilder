@@ -5,7 +5,7 @@ var masterViewModel = function(standardClaims, additionalClaims) {
     self.standardClaims = standardClaims;
     self.additionalClaims = ko.observableArray(additionalClaims);
 
-    self.key = ko.observable("my key");
+    self.key = ko.observable("qwertyuiopasdfghjklzxcvbnm123456");
     self.createdJwt = ko.observable("");
 
     self.generatedClaimSet = ko.computed(function() {

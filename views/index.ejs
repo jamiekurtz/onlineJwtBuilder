@@ -178,7 +178,7 @@
                     <div class="col-sm-8 col-sm-offset-1">
                         <pre data-bind="text: generatedClaimSetDisplay" />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         <p class=" text-success">This section displays the claims that will be signed and base64-encoded into a complete JSON Web Token.</p>
                         <p>&nbsp;</p>
                         <p><em>
@@ -203,7 +203,10 @@
                                id="key"
                                data-bind="value: key, valueUpdate:'afterkeydown'">
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-1">
+                        HS256
+                    </div>
+                    <div class="col-sm-3">
                         <button type="button" class="btn btn-default"  data-bind="click:createJwt">Create Signed JWT</button>
                     </div>
                     <div class="col-md-12">

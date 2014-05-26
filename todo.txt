@@ -5,5 +5,5 @@
 - delete a claim
 - save to local storage
 - buttons to generate 32, 64, and 128-byte symmetic keys
-
+- base64 representation of the key
 
