@@ -6,7 +6,7 @@ NodeJS-based web application used to generate signed valid JSON Web Tokens to be
 Future plans for:
 - Saving form data to browser local storage
 - Offering a dropdown for signing algorithms (currently set to SHA256)
-- Button to provide base64-encoded version of generated symmetric key
+- "Import Token" button, to populate the claims from an existing token
 
 The live site for this application is here: http://jwtbuilder.jamiekurtz.com
 

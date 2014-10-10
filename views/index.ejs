@@ -229,11 +229,12 @@
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a data-bind="click:generateSymmetricKey(32)">Generate 32-byte key</a></li>
-                                <li><a data-bind="click:generateSymmetricKey(64)">Generate 64-byte key</a></li>
-                                <li><a data-bind="click:generateSymmetricKey(128)">Generate 128-byte key</a></li>
-                                <!--<li class="divider"></li>-->
+                            <ul class="dropdown-menu" role="menu" >
+                                <li><a href="#" data-bind="click:generateSymmetricKey(32)">Generate 32-byte key</a></li>
+                                <li><a href="#" data-bind="click:generateSymmetricKey(64)">Generate 64-byte key</a></li>
+                                <li><a href="#" data-bind="click:generateSymmetricKey(128)">Generate 128-byte key</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#" data-bind="click:toggleBase64"><span class="glyphicon glyphicon-ok" data-bind="visible: isBase64Encoding"></span>&nbsp;Base64-encode the token</a></li>
                             </ul>
                         </div>
                     </div>
@@ -263,6 +264,7 @@
 <script src="/js/common.js"></script>
 <script src="/js/viewModels.js"></script>
 <script src="/js/ZeroClipboard.js"></script>
+<script src="/js/base64.js"></script>
 
 
 <script>

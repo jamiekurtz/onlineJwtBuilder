@@ -8,6 +8,8 @@ var masterViewModel = function(standardClaims, additionalClaims) {
     self.key = ko.observable("");
     self.createdJwt = ko.observable("");
 
+    self.isBase64Encoding = ko.observable(false);
+
     self.keyLength = ko.computed(function() {
         return self.key().length;
     });
@@ -62,7 +64,13 @@ var masterViewModel = function(standardClaims, additionalClaims) {
         self.generatedClaimSet();
         self.key();
         self.createdJwt("");
+        self.isBase64Encoding();
     }, self);
+
+    self.toggleBase64 = function() {
+        var current = self.isBase64Encoding();
+        self.isBase64Encoding(!current);
+    };
 
     self.issuedAtSetNow = function() {
         this.standardClaims.issuedAt(new Date().toISOString());
@@ -137,7 +145,12 @@ var masterViewModel = function(standardClaims, additionalClaims) {
     };
 
     self.onTokenSuccess = function(data, status) {
-        self.createdJwt(data.token);
+        var token = data.token;
+        if(self.isBase64Encoding()) {
+            token = base64.encode(token);
+        }
+
+        self.createdJwt(token);
     };
 
     self.onTokenError = function(error) {
