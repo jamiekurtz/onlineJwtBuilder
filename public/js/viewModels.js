@@ -70,6 +70,7 @@ var masterViewModel = function(standardClaims, additionalClaims) {
     self.toggleBase64 = function() {
         var current = self.isBase64Encoding();
         self.isBase64Encoding(!current);
+        return false;
     };
 
     self.issuedAtSetNow = function() {
@@ -124,6 +125,7 @@ var masterViewModel = function(standardClaims, additionalClaims) {
 
     self.generateSymmetricKey = function(charCount) {
         self.key(createKey(charCount));
+        return false;
     };
 
     self.createJwt = function() {

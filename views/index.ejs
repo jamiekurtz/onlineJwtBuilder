@@ -288,6 +288,10 @@
         viewModel.key("qwertyuiopasdfghjklzxcvbnm123456");
         viewModel.issuedAtSetNow();
         viewModel.expirationSetOneYear();
+
+        $('a').on('click', function(event) {
+            event.preventDefault();
+        });
     });
 
 </script>
