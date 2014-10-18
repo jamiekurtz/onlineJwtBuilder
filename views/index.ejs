@@ -290,7 +290,10 @@
         viewModel.expirationSetOneYear();
 
         $('a').on('click', function(event) {
-            event.preventDefault();
+            var href = event.currentTarget.href;
+            if(href.indexOf("#") === href.length - 1) {
+                event.preventDefault();
+            }
         });
     });
 
