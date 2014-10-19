@@ -13,8 +13,9 @@ router.get('/about', function(req, res) {
 
 router.post('/tokens', function(req, res) {
 
-    var claims = req.body.claims;
-    var key = req.body.key;
+    var claims = req.body.claims,
+        key = req.body.key,
+        alg = req.body.alg;
 
     if(!claims) {
         res.send(400, "Missing claims");
@@ -26,8 +27,13 @@ router.post('/tokens', function(req, res) {
         return;
     }
 
+    if(!alg) {
+        res.send(400, "Missing alg");
+        return;
+    }
+
     try {
-        var token = jwt.encode(claims, key, 'HS256');
+        var token = jwt.encode(claims, key, alg);
         var response = {
             token:token
         };

@@ -219,7 +219,15 @@
 
                     </div>
                     <div class="col-sm-1">
-                        HS256
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                                <span data-bind="text: selectedAlgorithm"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" data-bind="foreach: algorithms">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-bind="text: $data, click:$root.toggleAlgorithm"></a></li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="col-sm-3">
                         <!-- Split button -->

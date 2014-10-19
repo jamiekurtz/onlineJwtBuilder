@@ -10,6 +10,9 @@ var masterViewModel = function(standardClaims, additionalClaims) {
 
     self.isBase64Encoding = ko.observable(false);
 
+    self.selectedAlgorithm = ko.observable("HS256");
+    self.algorithms = ko.observableArray(["HS256", "HS384", "HS512"]);
+
     self.keyLength = ko.computed(function() {
         return self.key().length;
     });
@@ -65,12 +68,17 @@ var masterViewModel = function(standardClaims, additionalClaims) {
         self.key();
         self.createdJwt("");
         self.isBase64Encoding();
+        self.selectedAlgorithm();
     }, self);
 
     self.toggleBase64 = function() {
         var current = self.isBase64Encoding();
         self.isBase64Encoding(!current);
         return false;
+    };
+
+    self.toggleAlgorithm = function(item) {
+        self.selectedAlgorithm(item);
     };
 
     self.issuedAtSetNow = function() {
@@ -130,8 +138,9 @@ var masterViewModel = function(standardClaims, additionalClaims) {
 
     self.createJwt = function() {
         var request = {
-          claims: this.generatedClaimSet(),
-          key:this.key()
+            claims: this.generatedClaimSet(),
+            key:this.key(),
+            alg:self.selectedAlgorithm()
         };
 
         var data = ko.toJSON(request);
