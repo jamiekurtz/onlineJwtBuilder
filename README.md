@@ -19,5 +19,3 @@ Developer Guide
 1. Browse to http://localhost:3000 to view the site
 
 
-
-
