@@ -15,7 +15,7 @@ Developer Guide
 
 1. Ensure [NodeJS](http://nodejs.org/download/) is installed
 1. Run `npm install` from this project folder to install/configure all modules
-1. Run `bin/www` to start the server
+1. Run `npm start` to start the server
 1. Browse to http://localhost:3000 to view the site
 
 
