@@ -250,10 +250,10 @@
                         &nbsp;
                     </div>
                     <div class="col-sm-8 col-sm-offset-2">
-                        <pre data-bind="text: createdJwt" style="height: 8pc" id="created-jwt" />
+                        <pre data-bind="text: createdJwt" style="height: 8pc; white-space: pre-wrap; word-wrap: break-word;" id="created-jwt" />
                     </div>
                     <div class="col-sm-1">
-                        <p><button type="button" id="copy-button" class="btn btn-default btn-xs" data-clipboard-target="created-jwt" title="Click to copy the token.">Copy JWT<Br>to Clipboard</button></p>
+                        <p><button type="button" id="copy-button" class="btn btn-default btn-xs" data-clipboard-target="#created-jwt" title="Click to copy the token.">Copy JWT<Br>to Clipboard</button></p>
                     </div>
                 </div>
             </div>
@@ -271,24 +271,24 @@
 <script type='text/javascript' src='/js/knockout-3.1.0.js'></script>
 <script src="/js/common.js"></script>
 <script src="/js/viewModels.js"></script>
-<script src="/js/ZeroClipboard.js"></script>
+<script src="/js/clipboard.min.js"></script>
 <script src="/js/base64.js"></script>
 
 
 <script>
-
-    var client = new ZeroClipboard( document.getElementById("copy-button") );
-    client.on( "ready", function( readyEvent ) {
-        // alert( "ZeroClipboard SWF is ready!" );
-
-        client.on( "aftercopy", function( event ) {
-            // `this` === `client`
-            // `event.target` === the element that was clicked
-            event.target.style.display = "none";
-            alert("Copied text to clipboard: " + event.data["text/plain"] );
-        } );
-    } );
-
+    const copyBtn = $("#copy-button");
+    function showTips() {
+        copyBtn.html('Copied!');
+        setTimeout(() => {
+            copyBtn.html('Copy JWT<Br>to Clipboard');
+        }, 1500);
+    }
+    var clipboard = new ClipboardJS('#copy-button');
+    clipboard.on('success', function (e) {
+        showTips();
+        e.clearSelection();
+    });
+    
     $(function() {
         var viewModel = createMaster();
         ko.applyBindings(viewModel);
@@ -306,8 +306,5 @@
     });
 
 </script>
-
-
-
 </body>
 </html>
