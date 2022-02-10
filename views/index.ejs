@@ -276,7 +276,6 @@
 
 
 <script>
-
     const notification = $("#copy-button");
     function showNotification() {
         notification.html('Copied!');
@@ -285,20 +284,11 @@
         }, 1500);
     }
     var clipboard = new ClipboardJS('#copy-button');
-
     clipboard.on('success', function (e) {
-        console.info('Action:', e.action);
-        console.info('Text:', e.text);
-        console.info('Trigger:', e.trigger);
         showNotification();
         e.clearSelection();
     });
-
-    clipboard.on('error', function (e) {
-        console.error('Action:', e.action);
-        console.error('Trigger:', e.trigger);
-    });
-
+    
     $(function() {
         var viewModel = createMaster();
         ko.applyBindings(viewModel);
@@ -316,8 +306,5 @@
     });
 
 </script>
-
-
-
 </body>
 </html>
