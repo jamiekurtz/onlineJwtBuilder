@@ -276,16 +276,16 @@
 
 
 <script>
-    const notification = $("#copy-button");
-    function showNotification() {
-        notification.html('Copied!');
+    const copyBtn = $("#copy-button");
+    function showTips() {
+        copyBtn.html('Copied!');
         setTimeout(() => {
-            notification.html('Copy JWT<Br>to Clipboard');
+            copyBtn.html('Copy JWT<Br>to Clipboard');
         }, 1500);
     }
     var clipboard = new ClipboardJS('#copy-button');
     clipboard.on('success', function (e) {
-        showNotification();
+        showTips();
         e.clearSelection();
     });
     
